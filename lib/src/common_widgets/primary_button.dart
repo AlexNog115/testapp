@@ -13,15 +13,14 @@ class PrimaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: 50,
-      child: ElevatedButton(
-        onPressed: onPressed,
-        child: Text(
-          text,
-          style: const TextStyle(fontSize: 18),
-        ),
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        minimumSize: const Size.fromHeight(50), // Set the height
+      ),
+      child: Text(
+        text,
+        style: const TextStyle(fontSize: 18),
       ),
     );
   }

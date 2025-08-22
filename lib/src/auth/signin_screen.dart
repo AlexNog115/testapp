@@ -58,49 +58,62 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Sign In'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CustomTextField(
-                labelText: 'Email',
-                controller: _emailController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your email';
-                  }
-                  if (!value.contains('@')) {
-                    return 'Please enter a valid email';
-                  }
-                  return null;
-                },
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(32.0),
+          child: Container(
+            constraints: const BoxConstraints(maxWidth: 400),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const FlutterLogo(
+                    size: 100,
+                    style: FlutterLogoStyle.markOnly,
+                    textColor: Colors.blue,
+                  ),
+                  const SizedBox(height: 24),
+                  Text(
+                    'Sign In',
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
+                  const SizedBox(height: 32),
+                  CustomTextField(
+                    labelText: 'Email',
+                    controller: _emailController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your email';
+                      }
+                      if (!value.contains('@')) {
+                        return 'Please enter a valid email';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  CustomTextField(
+                    labelText: 'Password',
+                    controller: _passwordController,
+                    obscureText: true,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your password';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 32),
+                  _isLoading
+                      ? const CircularProgressIndicator()
+                      : PrimaryButton(
+                          text: 'Sign In',
+                          onPressed: _signIn,
+                        ),
+                ],
               ),
-              const SizedBox(height: 16),
-              CustomTextField(
-                labelText: 'Password',
-                controller: _passwordController,
-                obscureText: true,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your password';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 32),
-              _isLoading
-                  ? const CircularProgressIndicator()
-                  : PrimaryButton(
-                      text: 'Sign In',
-                      onPressed: _signIn,
-                    ),
-            ],
+            ),
           ),
         ),
       ),
